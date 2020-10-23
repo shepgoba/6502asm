@@ -19,10 +19,9 @@ def separateTokens(line):
 				tokens.append(slicedLine)
 			lastIndex = i + 1
 
-	print("bruh %s" % line[lastIndex:len(line)])
 	if not foundComment:
 		tokens.append(line[lastIndex:len(line)])
-	if tokens == []or tokens == ['']:
+	if tokens == [] or tokens == ['']:
 		return None
 	return tokens
 

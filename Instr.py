@@ -147,19 +147,20 @@ def zeropageOpcodeForInstruction(instr, opcodeBase, validLabels, address):
     return opcodeBase << 8 | num
 
 # TODO: - make this better
-def encodeTwosComplement(num):
+def encodeTwosComplement(num, instrSize):
     if num < 0:
-        return 0xff + num - 1
+        return 0x100 - abs(num) - instrSize
     else:
-        return num
+        return num - instrSize
 
 def relativeOpcodeForInstruction(instr, opcodeBase, validLabels, address):
     if instr.usesLabel:
         for lbl in validLabels:
             if lbl.name == instr.params[0]:
                 #if address - lbl.address >= 0:
-                addr = encodeTwosComplement(lbl.address - address)
+                addr = encodeTwosComplement(lbl.address - address, instr.size)
                 #else:
+                print("addr: %04x, %04x" % (lbl.address, address))
                 #addr = encodeTwosComplement(address - lbl.address)
 
                 #print("instr address: %04x, lbl address: %04x" % (address & 0xff, lbl.address & 0xff))
@@ -174,7 +175,7 @@ def absoluteOpcodeForInstruction(instr, opcodeBase, validLabels, address):
         for lbl in validLabels:
             if lbl.name == instr.params[0]:
                 addr = lbl.address
-                return opcodeBase << 16 | byteswap(addr)
+                return opcodeBase << 16 | byteswap(addr + 0x1000) & 0xffff
 
         exitWithError("Label \"%s\" not found.", instr.params[0])
     resultSuccess, num = numForString(instr.params[0], None)
