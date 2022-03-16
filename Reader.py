@@ -26,9 +26,10 @@ def separateTokens(line):
 	return tokens
 
 class FileReader:
-	file = None
-	fileLines = []
-	fileLineCount = 0
+	def __init__(self):
+		self.file = None
+		self.fileLines = []
+		self.fileLineCount = 0
 
 	def loadFile(self, fileName):
 		self.file = open(fileName, "r")

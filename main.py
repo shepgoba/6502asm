@@ -5,20 +5,20 @@ from InstrParser import opcodeForInstruction
 from Instr import *
 
 def main():
-    reader = FileReader()
-    reader.loadFile("example.asm")
+	reader = FileReader()
+	reader.loadFile("example.asm")
 
-    lineTokens = reader.getLineTokens()
+	lineTokens = reader.getLineTokens()
 
-    parser = InstructionParser()
-    parser.parseLines(lineTokens)
+	parser = InstructionParser()
+	parser.parseLines(lineTokens)
 
-    romData = parser.getBinaryData()
-    if romData == None:
-        print("There was an error with getting output data")
-        return
+	romData = parser.getBinaryData()
+	if romData == None:
+		print("There was an error with getting output data")
+		return
 
-    writeDataToFile(romData, "output.bin")
+	writeDataToFile(romData, "output.bin")
 
 if __name__ == "__main__":
-    main()
+	main()

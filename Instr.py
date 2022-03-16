@@ -17,185 +17,185 @@ INDIRECT_Y_ENCODING  = 1       #0b000000000001
 
 # Returns if instruction was a valid one, and what index it has in the instruction table
 def matchInstruction(instrName):
-    for (idx, currentInstrName) in enumerate(VALID_INSTR_NAMES):
-        if instrName.lower() == currentInstrName.lower():
-            return (True, idx)
-    return (False, 0)
+	for (idx, currentInstrName) in enumerate(VALID_INSTR_NAMES):
+		if instrName.lower() == currentInstrName.lower():
+			return (True, idx)
+	return (False, 0)
 
 def byteswap(num):
-    return ((num & 0xff00) >> 8) | ((num & 0xff) << 8)
+	return ((num & 0xff00) >> 8) | ((num & 0xff) << 8)
 
 
 def singleParameterOpcode(opcode, instr, lineNumber):
-    instr.size = 1
-    return opcode
+	instr.size = 1
+	return opcode
 
 def opcodeDEX(instr, lineNumber):
-    return singleParameterOpcode(0xCA, instr, lineNumber)
+	return singleParameterOpcode(0xCA, instr, lineNumber)
 
 def opcodeDEY(instr, lineNumber):
-    return singleParameterOpcode(0x88, instr, lineNumber)
+	return singleParameterOpcode(0x88, instr, lineNumber)
 
 def opcodeINX(instr, lineNumber):
-    return singleParameterOpcode(0xE8, instr, lineNumber)
+	return singleParameterOpcode(0xE8, instr, lineNumber)
 
 def opcodeINY(instr, lineNumber):
-    return singleParameterOpcode(0xC8, instr, lineNumber)
+	return singleParameterOpcode(0xC8, instr, lineNumber)
 
 def opcodeNOP(instr, lineNumber):
-    return singleParameterOpcode(0xEA, instr, lineNumber)
+	return singleParameterOpcode(0xEA, instr, lineNumber)
 
 def opcodePHA(instr, lineNumber):
-    return singleParameterOpcode(0x48, instr, lineNumber)
+	return singleParameterOpcode(0x48, instr, lineNumber)
 
 def opcodePHP(instr, lineNumber):
-    return singleParameterOpcode(0x08, instr, lineNumber)
+	return singleParameterOpcode(0x08, instr, lineNumber)
 
 def opcodePLA(instr, lineNumber):
-    return singleParameterOpcode(0x68, instr, lineNumber)
+	return singleParameterOpcode(0x68, instr, lineNumber)
 
 def opcodePLP(instr, lineNumber):
-    return singleParameterOpcode(0x28, instr, lineNumber)
+	return singleParameterOpcode(0x28, instr, lineNumber)
 
 def opcodeRTI(instr, lineNumber):
-    return singleParameterOpcode(0x40, instr, lineNumber)
+	return singleParameterOpcode(0x40, instr, lineNumber)
 
 def opcodeRTS(instr, lineNumber):
-    return singleParameterOpcode(0x60, instr, lineNumber)
+	return singleParameterOpcode(0x60, instr, lineNumber)
 
 def opcodeSEC(instr, lineNumber):
-    return singleParameterOpcode(0x38, instr, lineNumber)
+	return singleParameterOpcode(0x38, instr, lineNumber)
 
 def opcodeSEI(instr, lineNumber):
-    return singleParameterOpcode(0x78, instr, lineNumber)
+	return singleParameterOpcode(0x78, instr, lineNumber)
 
 def opcodeSED(instr, lineNumber):
-    return singleParameterOpcode(0xF8, instr, lineNumber)
+	return singleParameterOpcode(0xF8, instr, lineNumber)
 
 def opcodeTAX(instr, lineNumber):
-    return singleParameterOpcode(0xAA, instr, lineNumber)
+	return singleParameterOpcode(0xAA, instr, lineNumber)
 
 def opcodeTAY(instr, lineNumber):
-    return singleParameterOpcode(0xA8, instr, lineNumber)
+	return singleParameterOpcode(0xA8, instr, lineNumber)
 
 def opcodeTSX(instr, lineNumber):
-    return singleParameterOpcode(0xBA, instr, lineNumber)
+	return singleParameterOpcode(0xBA, instr, lineNumber)
 
 def opcodeTXA(instr, lineNumber):
-    return singleParameterOpcode(0x8A, instr, lineNumber)
+	return singleParameterOpcode(0x8A, instr, lineNumber)
 
 def opcodeTXS(instr, lineNumber):
-    return singleParameterOpcode(0x9A, instr, lineNumber)
+	return singleParameterOpcode(0x9A, instr, lineNumber)
 
 def opcodeTYA(instr, lineNumber):
-    return singleParameterOpcode(0x98, instr, lineNumber)
+	return singleParameterOpcode(0x98, instr, lineNumber)
 
 def opcodeCLC(instr, lineNumber):
-    return singleParameterOpcode(0x18, instr, lineNumber)
+	return singleParameterOpcode(0x18, instr, lineNumber)
 
 def opcodeCLD(instr, lineNumber):
-    return singleParameterOpcode(0xD8, instr, lineNumber)
+	return singleParameterOpcode(0xD8, instr, lineNumber)
 
 def opcodeCLI(instr, lineNumber):
-    return singleParameterOpcode(0x58, instr, lineNumber)
-    
+	return singleParameterOpcode(0x58, instr, lineNumber)
+	
 def opcodeCLV(instr, lineNumber):
-    return singleParameterOpcode(0xB8, instr, lineNumber)
+	return singleParameterOpcode(0xB8, instr, lineNumber)
 
 def opcodeBRK(instr, lineNumber):
-    return singleParameterOpcode(0x00, instr, lineNumber)
+	return singleParameterOpcode(0x00, instr, lineNumber)
 
 def opcodeDEX(instr, lineNumber):
-    return singleParameterOpcode(0xCA, instr, lineNumber)
+	return singleParameterOpcode(0xCA, instr, lineNumber)
 
 def opcodeDEY(instr, lineNumber):
-    return singleParameterOpcode(0x88, instr, lineNumber)
+	return singleParameterOpcode(0x88, instr, lineNumber)
 
 IMPLIED_OPCODE_TABLE = [None, None, None, None, None, None, None, None, None, None, opcodeBRK, None, None, opcodeCLC,
-                opcodeCLD, opcodeCLI, opcodeCLV, None, None, None, None, opcodeDEX, opcodeDEY, None, None, opcodeINX, opcodeINY, None,
-                None, None, None, None, None, opcodeNOP, None, opcodePHA, opcodePHP, opcodePLA, opcodePLP, None, None, opcodeRTI,
-                opcodeRTS, None, opcodeSEC, opcodeSED, opcodeSEI, None, None, None, opcodeTAX, opcodeTAY, opcodeTXS, opcodeTXA, opcodeTXS, opcodeTYA]
+				opcodeCLD, opcodeCLI, opcodeCLV, None, None, None, None, opcodeDEX, opcodeDEY, None, None, opcodeINX, opcodeINY, None,
+				None, None, None, None, None, opcodeNOP, None, opcodePHA, opcodePHP, opcodePLA, opcodePLP, None, None, opcodeRTI,
+				opcodeRTS, None, opcodeSEC, opcodeSED, opcodeSEI, None, None, None, opcodeTAX, opcodeTAY, opcodeTXS, opcodeTXA, opcodeTXS, opcodeTYA]
 
 VALID_INSTR_NAMES = ["ADC", "AND", "ASL", "BCC", "BCS", "BEQ", "BIT", "BMI", "BNE", "BPL", "BRK", "BVC", "BVS", "CLC", 
-                     "CLD", "CLI", "CLV", "CMP", "CPX", "CPY", "DEC", "DEX", "DEY", "EOR", "INC", "INX", "INY", "JMP", 
-                     "JSR", "LDA", "LDX", "LDY", "LSR", "NOP", "ORA", "PHA", "PHP", "PLA", "PLP", "ROL", "ROR", "RTI", 
-                     "RTS", "SBC", "SEC", "SED", "SEI", "STA", "STX", "STY", "TAX", "TAY", "TSX", "TXA", "TXS", "TYA"]
+					 "CLD", "CLI", "CLV", "CMP", "CPX", "CPY", "DEC", "DEX", "DEY", "EOR", "INC", "INX", "INY", "JMP", 
+					 "JSR", "LDA", "LDX", "LDY", "LSR", "NOP", "ORA", "PHA", "PHP", "PLA", "PLP", "ROL", "ROR", "RTI", 
+					 "RTS", "SBC", "SEC", "SED", "SEI", "STA", "STX", "STY", "TAX", "TAY", "TSX", "TXA", "TXS", "TYA"]
 
 # addressing modes are as follows: 
 # high byte: zeropage Y, indirect, accumulator, relative, 
 # low byte: immediate, zeropage, zeropage X, absolute, absolute X, absolute Y, indirect X, indirect Y
 INSTR_ADDRESSING_MODES = [0b0000000011111111, 0b0000000011111111, 0b0000001001111000, 0b0000000100000000, 0b0000000100000000, 0b0000000100000000, # ADC - BEQ
-                          0b0000000001010000, 0b0000000100000000, 0b0000000100000000, 0b0000000100000000, ADDRESSINGMODENONE, 0b0000000100000000, # BIT - BVC
-                          0b0000000100000000, ADDRESSINGMODENONE, ADDRESSINGMODENONE, ADDRESSINGMODENONE, ADDRESSINGMODENONE, 0b0000000011111111, # BVS - CMP
-                          0b0000000011010000, 0b0000000011010000, 0b0000000001111000, ADDRESSINGMODENONE, ADDRESSINGMODENONE, 0b0000000011111111, # CPX - EOR
-                          0b0000000001111000, ADDRESSINGMODENONE, ADDRESSINGMODENONE, 0b0000010000010000, 0b0000000000010000, 0b0000000011111111, # INC - LDA
-                          0b0000100011010100, 0b0000000011111000, 0b0000001001111000, ADDRESSINGMODENONE, 0b0000000011111111, ADDRESSINGMODENONE, # LDX - PHA
-                          ADDRESSINGMODENONE, ADDRESSINGMODENONE, ADDRESSINGMODENONE, 0b0000001001111000, 0b0000001001111000, ADDRESSINGMODENONE, # PHP - RTI
-                          ADDRESSINGMODENONE, 0b0000000011111111, ADDRESSINGMODENONE, ADDRESSINGMODENONE, ADDRESSINGMODENONE, 0b0000000001111111, # RTS - STA
-                          0b0000100001010000, 0b0000000001110000, ADDRESSINGMODENONE, ADDRESSINGMODENONE, ADDRESSINGMODENONE, ADDRESSINGMODENONE, # STX - TXA
-                          ADDRESSINGMODENONE, ADDRESSINGMODENONE] # TXS - TYA
+						  0b0000000001010000, 0b0000000100000000, 0b0000000100000000, 0b0000000100000000, ADDRESSINGMODENONE, 0b0000000100000000, # BIT - BVC
+						  0b0000000100000000, ADDRESSINGMODENONE, ADDRESSINGMODENONE, ADDRESSINGMODENONE, ADDRESSINGMODENONE, 0b0000000011111111, # BVS - CMP
+						  0b0000000011010000, 0b0000000011010000, 0b0000000001111000, ADDRESSINGMODENONE, ADDRESSINGMODENONE, 0b0000000011111111, # CPX - EOR
+						  0b0000000001111000, ADDRESSINGMODENONE, ADDRESSINGMODENONE, 0b0000010000010000, 0b0000000000010000, 0b0000000011111111, # INC - LDA
+						  0b0000100011010100, 0b0000000011111000, 0b0000001001111000, ADDRESSINGMODENONE, 0b0000000011111111, ADDRESSINGMODENONE, # LDX - PHA
+						  ADDRESSINGMODENONE, ADDRESSINGMODENONE, ADDRESSINGMODENONE, 0b0000001001111000, 0b0000001001111000, ADDRESSINGMODENONE, # PHP - RTI
+						  ADDRESSINGMODENONE, 0b0000000011111111, ADDRESSINGMODENONE, ADDRESSINGMODENONE, ADDRESSINGMODENONE, 0b0000000001111111, # RTS - STA
+						  0b0000100001010000, 0b0000000001110000, ADDRESSINGMODENONE, ADDRESSINGMODENONE, ADDRESSINGMODENONE, ADDRESSINGMODENONE, # STX - TXA
+						  ADDRESSINGMODENONE, ADDRESSINGMODENONE] # TXS - TYA
 
 def accumulatorOpcodeForInstruction(instr, opcodeBase, validLabels, address):
-    return opcodeBase
+	return opcodeBase
 
 def immediateOpcodeForInstruction(instr, opcodeBase, validLabels, address):
-    resultSuccess, num = numForString(instr.params[0][1::], None)
-    return opcodeBase << 8 | num
+	resultSuccess, num = numForString(instr.params[0][1::], None)
+	return opcodeBase << 8 | num
 
 def zeropageOpcodeForInstruction(instr, opcodeBase, validLabels, address):
-    resultSuccess, num = numForString(instr.params[0], None)
-    return opcodeBase << 8 | num
+	resultSuccess, num = numForString(instr.params[0], None)
+	return opcodeBase << 8 | num
 
 # TODO: - make this better
 def encodeTwosComplement(num, instrSize):
-    if num < 0:
-        return 0x100 - abs(num) - instrSize
-    else:
-        return num - instrSize
+	if num < 0:
+		return 0x100 - abs(num) - instrSize
+	else:
+		return num - instrSize
 
 def relativeOpcodeForInstruction(instr, opcodeBase, validLabels, address):
-    if instr.usesLabel:
-        for lbl in validLabels:
-            if lbl.name == instr.params[0]:
-                addr = encodeTwosComplement(lbl.address - address, instr.size)
-                return opcodeBase << 8 | addr
-        exitWithError("Label \"%s\" not found.", instr.params[0])
-    resultSuccess, num = numForString(instr.params[0], None)
-    return opcodeBase << 8 | (num & 0xff)
+	if instr.usesLabel:
+		for lbl in validLabels:
+			if lbl.name == instr.params[0]:
+				addr = encodeTwosComplement(lbl.address - address, instr.size)
+				return opcodeBase << 8 | addr
+		exitWithError("Label \"%s\" not found.", instr.params[0])
+	resultSuccess, num = numForString(instr.params[0], None)
+	return opcodeBase << 8 | (num & 0xff)
 
 def absoluteOpcodeForInstruction(instr, opcodeBase, validLabels, address):
-    if instr.usesLabel:
-        for lbl in validLabels:
-            if lbl.name == instr.params[0]:
-                addr = lbl.address
-                return opcodeBase << 16 | byteswap(addr + 0x1000) & 0xffff
+	if instr.usesLabel:
+		for lbl in validLabels:
+			if lbl.name == instr.params[0]:
+				addr = lbl.address
+				return opcodeBase << 16 | byteswap(addr + 0x1000) & 0xffff
 
-        exitWithError("Label \"%s\" not found.", instr.params[0])
-    resultSuccess, num = numForString(instr.params[0], None)
+		exitWithError("Label \"%s\" not found.", instr.params[0])
+	resultSuccess, num = numForString(instr.params[0], None)
 
-    result = opcodeBase << 16 | byteswap(num)
+	result = opcodeBase << 16 | byteswap(num)
 
-    return result
+	return result
 
 
 def indirectOpcodeForInstruction(instr, opcodeBase, validLabels, address):
-    firstParam = instr.params[0]
-    resultSuccess, num = numForString(firstParam[1:-1], None)
-    result = opcodeBase << 16 | byteswap(num)
-    return result
+	firstParam = instr.params[0]
+	resultSuccess, num = numForString(firstParam[1:-1], None)
+	result = opcodeBase << 16 | byteswap(num)
+	return result
 
 def indirectYOpcodeForInstruction(instr, opcodeBase, validLabels, address):
-    firstParam = instr.params[0]
-    resultSuccess, num = numForString(firstParam[1:-1], None)
-    result = opcodeBase << 8 | num
-    return result
+	firstParam = instr.params[0]
+	resultSuccess, num = numForString(firstParam[1:-1], None)
+	result = opcodeBase << 8 | num
+	return result
 
 def indirectXOpcodeForInstruction(instr, opcodeBase, validLabels, address):
-    firstParam = instr.params[0]
-    resultSuccess, num = numForString(firstParam[1:], None)
+	firstParam = instr.params[0]
+	resultSuccess, num = numForString(firstParam[1:], None)
 
-    result = opcodeBase << 8 | num
-    return result
+	result = opcodeBase << 8 | num
+	return result
 
 ADC_ENCODINGS = [0x71, 0x61, 0x79, 0x7D, 0x6D, 0x75, 0x65, 0x69]
 AND_ENCODINGS = [0x31, 0x21, 0x39, 0x3D, 0x2D, 0x35, 0x25, 0x29]
@@ -259,18 +259,10 @@ INSTRUCTION_ENCODINGS = [ADC_ENCODINGS, AND_ENCODINGS, ASL_ENCODINGS, BCC_ENCODI
 PARSER_FOR_ADDRESSING_MODE = [indirectYOpcodeForInstruction, indirectXOpcodeForInstruction, absoluteOpcodeForInstruction, absoluteOpcodeForInstruction, absoluteOpcodeForInstruction, zeropageOpcodeForInstruction, zeropageOpcodeForInstruction, immediateOpcodeForInstruction, relativeOpcodeForInstruction, accumulatorOpcodeForInstruction, indirectOpcodeForInstruction, zeropageOpcodeForInstruction]
 
 class Instruction:
-    mnemonic = ""
-    params = []
-    size = 0
-    address = 0
-    addressingMode = None
-    usesLabel = 0
-
-
-    def __init__(self, mnemonic, params, address, addressingModeUsed, size, usesLabel):
-        self.mnemonic = mnemonic
-        self.params = params
-        self.address = address
-        self.addressingMode = addressingModeUsed
-        self.size = size
-        self.usesLabel = usesLabel
+	def __init__(self, mnemonic, params, address, addressingModeUsed, size, usesLabel):
+		self.mnemonic = mnemonic
+		self.params = params
+		self.address = address
+		self.addressingMode = addressingModeUsed
+		self.size = size
+		self.usesLabel = usesLabel
