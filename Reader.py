@@ -50,8 +50,6 @@ class FileReader:
 		tokens = []
 		for line in self.fileLines:
 			strippedLine = separateTokens(line)
-			#if strippedLine:
 			tokens.append(strippedLine)
 
-		print(tokens)
 		return tokens

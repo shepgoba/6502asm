@@ -157,20 +157,13 @@ def relativeOpcodeForInstruction(instr, opcodeBase, validLabels, address):
     if instr.usesLabel:
         for lbl in validLabels:
             if lbl.name == instr.params[0]:
-                #if address - lbl.address >= 0:
                 addr = encodeTwosComplement(lbl.address - address, instr.size)
-                #else:
-                print("addr: %04x, %04x" % (lbl.address, address))
-                #addr = encodeTwosComplement(address - lbl.address)
-
-                #print("instr address: %04x, lbl address: %04x" % (address & 0xff, lbl.address & 0xff))
                 return opcodeBase << 8 | addr
         exitWithError("Label \"%s\" not found.", instr.params[0])
     resultSuccess, num = numForString(instr.params[0], None)
     return opcodeBase << 8 | (num & 0xff)
 
 def absoluteOpcodeForInstruction(instr, opcodeBase, validLabels, address):
-    #print("nice")
     if instr.usesLabel:
         for lbl in validLabels:
             if lbl.name == instr.params[0]:

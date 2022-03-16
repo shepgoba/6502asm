@@ -46,7 +46,6 @@ def parseInstruction(addressingModes, instrParams, lineNumber):
             usesLabel = isLabel(firstParam)
 
             if not usesLabel and not resultSuccess:
-                #print("rip")
                 exitWithError("Line %i: Invalid token %s", lineNumber, firstParam)
 
 
@@ -86,7 +85,6 @@ def parseInstruction(addressingModes, instrParams, lineNumber):
                     print("Line %i: Value is beyond instruction encoding" % lineNumber)
                 return (resultSuccess, INDIRECT_X_ENCODING, 2, usesLabel)
 
-        print("isLabel(firstParam): %i", isLabel(firstParam))
         if (resultSuccess or isLabel(firstParam)) and paramCount == 2:
 
             if instrParams[1].lower() == 'x':
@@ -95,13 +93,11 @@ def parseInstruction(addressingModes, instrParams, lineNumber):
                 elif addressingModes & ABSOLUTE_X_ENCODING:
                     return (True, ABSOLUTE_X_ENCODING, 3, usesLabel)
             elif instrParams[1].lower() == 'y':
-                print("why")
                 if addressingModes & ZEROPAGE_Y_ENCODING and not usesLabel and resultNumber <= 0xFF:
                     return (True, ZEROPAGE_Y_ENCODING, 2, False)
                 elif addressingModes & ABSOLUTE_Y_ENCODING:
                     return (True, ABSOLUTE_Y_ENCODING, 3, usesLabel)
             else:
-                #print("addrMode: %i" % addressingModes)
                 exitWithError("Line %i: Invalid parameter \"%s\" (must be register X or Y)", lineNumber, instrParams[1])
 
 
@@ -114,8 +110,6 @@ def opcodeForInstruction(instr, lineNumber, validLabels, address):
     addrModeIndex = addressingModeIndex(instr.addressingMode) - 1
     wasFound, instrIndex = matchInstruction(instrName)
     
-    #print("instr.name: %s, address: %s, addrModeIndex: %i" % (instrName, address, addrModeIndex))
-
     if instr.addressingMode == ADDRESSINGMODENONE:
         return IMPLIED_OPCODE_TABLE[instrIndex](instr, lineNumber)
     return PARSER_FOR_ADDRESSING_MODE[addrModeIndex](instr, INSTRUCTION_ENCODINGS[instrIndex][addrModeIndex], validLabels, address)
@@ -245,8 +239,6 @@ class InstructionParser:
             newInstruction = Instruction(instrName, paramsSlice, self.currentAddress, addressingModeUsed, instrSize, usesLabel)
             self.instructions.append(newInstruction)
 
-            print("%04x: %s with addressing mode %s" % (self.currentAddress, newInstruction.mnemonic, addressingModeUsed))
-
 
             self.currentAddress += instrSize
 
@@ -257,7 +249,6 @@ class InstructionParser:
         for instr in self.instructions:
             opcode = opcodeForInstruction(instr, lineNumber, self.labels, instr.address)
 
-            print("%06x: %06x" % (self.currentAddress, opcode))
 
             if opcode > 0xFFFF:
                 self.finalbinary[instr.address] = (opcode & 0xff0000) >> 16
